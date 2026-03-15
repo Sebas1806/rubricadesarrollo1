@@ -20,7 +20,7 @@ Problemas que resuelven:
 2.  Sincronización de Datos: Aseguran que, si un dato cambia en un "Sidebar", el "Header" se entere al instante sin dependencias directas.
 3.  Lógica Desacoplada: Permiten separar la lógica de negocio (cómo se procesan los datos) de la lógica de UI (cómo se ven).
 
-### Tipos de Manejadores:
+Tipos de Manejadores:
 -   Context API: Nativo de React. Ideal para estados que cambian poco (temas, autenticación).
 -   Librerías Externas: Como Redux, Zustand o Recoil, optimizadas para estados que cambian frecuentemente y de forma compleja.
 
