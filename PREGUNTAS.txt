@@ -1,0 +1,50 @@
+a. ¿Qué es un State en React.js y cómo funciona?
+
+El State (estado) es un objeto interno de React que actúa como la "memoria" de un componente. A diferencia de las props (que son como argumentos de una función: inmutables y pasadas desde afuera), el State es privado, dinámico y totalmente gestionado dentro del propio componente.
+
+¿Cómo funciona internamente?
+
+1.  Reactividad y Re-renderizado: Cuando el estado cambia, React marca el componente como "sucio". Al final de un ciclo, React compara el Virtual DOM anterior con el nuevo y realiza solo los cambios necesarios en el DOM real.
+2.  Hook useState: El patrón moderno. Devuelve un valor persistente entre renders y una función despachadora. Es crucial entender que no se debe mutar el estado directamente; siempre se debe usar la función de actualización para que React sepa que hubo un cambio.
+3.  Batching (Agrupamiento): React agrupa múltiples actualizaciones de estado en una sola vuelta de eventos para mejorar el rendimiento. Esto significa que el estado actualizado no suele estar disponible inmediatamente después de llamar a la función set.
+4.  Estado Local vs. Elevación: El estado debe vivir lo más cerca posible de donde se usa. Si varios componentes necesitan la misma data, el estado se "eleva" (lifting state up) al ancestro común más cercano.
+
+
+
+b. ¿Qué es un manejador de states (State Handlers)?
+
+Un manejador de estado es una arquitectura o librería diseñada para coordinar la información a través de múltiples partes de una aplicación. En React, a medida que la App crece, el manejo "manual" se vuelve difícil.
+
+Problemas que resuelven:
+1.  Prop Drilling: Evitan pasar datos a través de 5 o 10 niveles de componentes que no necesitan esa información solo para que llegue a un componente nieto.
+2.  Sincronización de Datos: Aseguran que, si un dato cambia en un "Sidebar", el "Header" se entere al instante sin dependencias directas.
+3.  Lógica Desacoplada: Permiten separar la lógica de negocio (cómo se procesan los datos) de la lógica de UI (cómo se ven).
+
+### Tipos de Manejadores:
+-   Context API: Nativo de React. Ideal para estados que cambian poco (temas, autenticación).
+-   Librerías Externas: Como Redux, Zustand o Recoil, optimizadas para estados que cambian frecuentemente y de forma compleja.
+
+
+
+c. ¿Qué es Redux?
+
+Redux es un contenedor predecible del estado para aplicaciones JavaScript. Se rige por el principio de "Única fuente de verdad" y un "Flujo unidireccional".
+
+Pilares Fundamentales (Modern Redux Toolkit):
+-   Store: El cerebro global. Almacena todo el árbol de estado de la aplicación.
+-   Actions: Objetos que describen una intención. "Quiero añadir un item". Nunca dicen cómo se hace, solo qué se quiere hacer.
+-   Reducers: Funciones puras que determinan cómo cambia el estado. Reciben el estado anterior + la acción y retornan un nuevo estado. Con Redux Toolkit, usamos Immer, lo que permite escribir lógica "mutante" que se traduce automáticamente en actualizaciones inmutables.
+-   Selectors: Funciones para extraer pedazos específicos del estado de forma eficiente.
+-   Middleware: El lugar para la lógica asíncrona (como llamadas a APIs) usando herramientas como createAsyncThunk.
+
+
+
+d. ¿Qué es Zustand?
+
+Zustand es una alternativa minimalista y potente a Redux y Context API. Nació de la frustración por el exceso de código ("boilerplate") de otras soluciones.
+
+¿Por qué elegir Zustand?
+1.  Eliminación de Providers: No necesitas envolver toda tu aplicación en un Provider. El estado vive fuera del árbol de componentes de React, pero se vincula a él mediante hooks.
+2.  Rendimiento Granular: Zustand permite seleccionar partes muy específicas del estado. Un componente solo se re-renderizará si el valor exacto que está escuchando cambia.
+3.  Filosofía Hook-first: Todo se define como un hook personalizado, lo que encaja perfectamente con la mentalidad de React moderno.
+4.  Transientes: Permite actualizaciones de alto rendimiento para valores que cambian milisegundos (como coordenadas del mouse) sin disparar re-renderizados pesados si no es necesario.
